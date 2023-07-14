@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ @layer base {
+.pt-18{
+    padding-top:4rem;/* 64px */
+}
+.z-2{
+    z-index: 2;
+}
+.z-3{
+    z-index: 3;
+}
+.z-4{
+    z-index: 4;
+}
+.z-5{
+    z-index: 5;
+}
+.s-card-6{
+    height:8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    /* text-align: center; */
+    word-spacing: 2px;
+    color: black;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    }
+ .min-h-56{
+    min-height: 14rem;
+    }
+ 
+  .min-w-64{
+    min-width: 16rem;
+    }
+    .min-h-40{
+        min-width: 10rem;
+        }
+    .max-h-96{
+        max-height:24rem;
+    }
+    .clearfix{
+    clear:both;
+    }
+    [multiple], [type=date], [type=datetime-local], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel], [type=text], [type=time], [type=url], [type=week], select, textarea {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: #fff;
+        border-color: #6b7280;
+        border-width: 1px;
+        border-radius: 0;
+        padding-top: 0.5rem;
+        padding-right: 0.75rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        --tw-shadow: 0 0 #0000;
+    }
+    button, input, optgroup, select, textarea {
+        font-family: inherit;
+        font-size: 100%;
+        font-weight: inherit;
+        line-height: inherit;
+        color: inherit;
+        margin: 0;
+        padding: 0;
+    }
+}
+label{
+    @apply my-1 py-2;
+}
+.dropdown{
+    /* width: 24rem;
+    right:-10.8rem; */
+    z-index: 2;
+    @apply bg-slate-100 shadow-lg absolute mt-4 min-h-56 xs:-right-32 md:-right-44;
+}
+.dropdown::before{
+    content: "";
+    position: absolute;
+    top:-1rem;
+    left:50%;
+    border-right: .5rem solid transparent;
+    border-left: .5rem solid transparent;
+    border-bottom: 1rem solid rgb(222, 222, 222); 
+}
+.dropdown-menu{
+    @apply min-h-40 max-h-96 overflow-y-scroll relative;
+}
+.dropdown-menu-header{
+    @apply w-full h-12 items-center justify-center flex p-5;
+}
+.dropdown-menu-footer{
+    @apply static bottom-0 w-full h-6 items-center justify-center flex p-5 text-blue-800 text-sm bg-slate-200 object-bottom;
+}
+.dropdown .messages{
+    @apply bg-cyan-500;
+}
+.dropdown .notifications{
+    @apply bg-red-600;
+}
+.dropdown.notification-dropdown, .dropdown.message-dropdown, .dropdown-checkbox,.userMenu-dropdown{
+    @apply hidden;
+}
+#notification:hover ~ .dropdown.notification-dropdown, #message:hover ~ .dropdown.message-dropdown, #userMenu:checked ~ .dropdown.userMenu-dropdown{
+@apply block transition duration-300 ease-in-out;
+}
+.dropdown-menu .items, .items{
+        border-bottom: 1px solid rgba(216, 216, 216, 0.9);
+        min-height: 3rem;
+        @apply items-center flex relative;
+}
+.dropdown .time{
+    @apply absolute right-0  text-gray-400 text-xs  w-auto bg-slate-200 shadow mt-2 p-1 rounded-md;
+    bottom: -0.325rem;
+}
+.badge{
+    @apply absolute flex justify-center align-middle w-4 h-4 rounded-full text-xs font-bold items-center;
+    top:-.5rem;
+    right: -.64rem;
+}
+/* width */
+.dropdown-menu::-webkit-scrollbar, .scroll::-webkit-scrollbar {
+    width: .7rem;
+  }
+  
+  /* Track */
+  .dropdown-menu::-webkit-scrollbar-track, .scroll::-webkit-scrollbar-track  {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: .7rem;
+  }
+  
+  /* Handle */
+ .dropdown-menu::-webkit-scrollbar-thumb , .scroll::-webkit-scrollbar-thumb {
+    background: rgb(61, 61, 61);
+    border-radius: .3rem;
+  }
+  body{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .footer{
+    @apply  bg-black z-5 text-white fixed -bottom-0 w-full h-14 flex items-center justify-center mt-20 right-0;
+  }
+  .tag-container{
+    @apply mt-1 flex rounded-md shadow-sm  items-stretch overflow-x-hidden;
+   }
+  .tag-wrapper{
+   @apply p-1 border-2 border-gray-600 rounded-sm flex flex-wrap items-center m-0 w-full;
+  }
+  .tag{
+    @apply p-1 text-xs border border-gray-600 rounded-sm flex items-center bg-slate-300 mx-1;
+   }
+   .tag-input{
+    @apply flex-1 text-xl  p-1.5 outline-none border-none w-fit;
+   }
