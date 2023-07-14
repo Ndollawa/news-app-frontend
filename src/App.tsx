@@ -42,15 +42,15 @@ function App(){
                                       <Route path="503" element={<Error503/>} />
                               </Route>
                                   <Route element={<Prefetch/>}>
-                                    {/* <Route element={<PersistLogin/>}> */}
-                                      {/* <Route element={<RequireAuth allowedRoles={[1002,1003]} />} > */}
+                                    <Route element={<PersistLogin/>}>
+                                      <Route element={<RequireAuth allowedRoles={[1002,1003]} />} >
            
                                         <Route path="/dashboard" element={<Layout />} >
                                         <Route index element={<Dashboard />} />
                                       </Route>
                                     </Route>
-                                  {/* </Route> */}
-                                {/* </Route> */}
+                                  </Route>
+                                </Route>
                                 {/* <Route path="/posts/create" element={<CreatePost pageProps={{pageTitle:"Create Post"}}/>} /> */}
                                 <Route path='*'  element={<Navigate to="error/404"/>}/>
 

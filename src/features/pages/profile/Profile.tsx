@@ -20,11 +20,11 @@ const options:ModalOptions = {
 }
 const modal = new Modal(profileModal, options);
 useEffect(() => {
-if(showUserProfile){
-    //  modal?.show() 
- }else{
-    // modal?.hide();
- } 
+// if(showUserProfile){
+//      modal?.show() 
+//  }else{
+//     modal?.hide();
+//  } 
   
 }, [])
   return (
