@@ -265,7 +265,19 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                     id="full-name"
                   />
                 </div>
-                {(fullNameFocus && !validFullName) && <p className='text-sm font-medium text-red-700 dark:text-red-500'>Must be at least 3  characters.<br/>Must begin with  a letter</p>}
+                {(fullNameFocus && !validFullName) && <div className="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+  <svg className="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+  </svg>
+  <span className="sr-only">Error</span>
+  <div>
+    <span className="font-medium">Ensure that these requirements are met:</span>
+      <ul className="mt-1.5 ml-4 list-disc list-inside">
+        <li>Must be at least 3  characters. (and up to 100 characters)</li>
+        <li>Must begin with  a letter</li>
+    </ul>
+  </div>
+</div>}
               </div>
               <div className="">
                 <label
@@ -295,7 +307,22 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                     id="email"
                   />
                 </div>
-                {(emailFocus &&  !validEmail) &&<p className='text-sm font-medium text-red-700 dark:text-red-500' id='uemailnote'>Must begin with letter followed by @ and a provider and end with a domain . eg. youremail@provider.com</p>}
+                {(emailFocus &&  !validEmail) &&
+                <div className="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <svg className="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span className="sr-only">Danger</span>
+                <div>
+                  <span className="font-medium">Ensure that these requirements are met:</span>
+                    <ul className="mt-1.5 ml-4 list-disc list-inside">
+                      <li>At least 10 characters (and up to 100 characters)</li>
+                      <li>Must begin with letter followed by @ and a provider. eg. youremail@provider.com</li>
+                      <li>Mustnend with a domain</li>
+                  </ul>
+                </div>
+              </div>
+              }
               </div>
               <div className="">
                 <label
@@ -354,7 +381,21 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                   </svg>
                 </div>
                 </div>
-                {(pwdFocus && ! validPwd) && <p className='text-sm font-medium text-red-700 dark:text-red-500'>8 to 24 characters.<br/>Must include uppercase and lowercase letters, a number and a special character.<br/> Allowed Special characters: <span aria-label="underscore">_</span> <span aria-label="hyphens">-</span><span aria-label="at symbol">@</span><span aria-label="hashtag">#</span><span aria-label="dollar sign">$</span><span aria-label="percent">% </span> </p>}
+                {(pwdFocus && ! validPwd) && 
+                <div className="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <svg className="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span className="sr-only">Error</span>
+                <div>
+                  <span className="font-medium">Ensure that these requirements are met:</span>
+                    <ul className="mt-1.5 ml-4 list-disc list-inside">
+                      <li>At least 8 characters (and up to 24 characters)</li>
+                      <li>Must include uppercase and lowercase letters</li>
+                      <li>Must include at least one special character, e.g.,- % $ ! @ # ?</li>
+                  </ul>
+                </div>
+              </div>}
               </div>
               <div className="">
                 <label
@@ -413,7 +454,15 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                   </svg>
                 </div>
                 </div>
-                {(matchFocus && !validMatch) && <p className='text-sm font-medium text-red-700 dark:text-red-500' id='confirmpwdnote'>Passwords do not match!</p>}
+                {(matchFocus && !validMatch) &&<div className="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+  <svg className="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+  </svg>
+  <span className="sr-only">Info</span>
+  <div>
+    <span className="font-medium">Error!</span> Passwords do not match.
+  </div>
+</div>}
               </div>
              
              
