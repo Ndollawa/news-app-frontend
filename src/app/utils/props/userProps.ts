@@ -4,7 +4,10 @@
      id:string | undefined;
      name: string | undefined;
      email: string | undefined;
+     profile:{
      gender: string | undefined;
+     bio: string | undefined;
+     phone: string | undefined;
      city: string | undefined;
      state: string | undefined;
      country: string | undefined;
@@ -16,6 +19,7 @@
          Dev?: number | undefined | null;
          Staff?: number | undefined | null;
      } | null | undefined;
+    }
      createdAt?:Date;
      updatedAt?:Date;
     }

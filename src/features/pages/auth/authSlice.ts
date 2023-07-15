@@ -14,13 +14,17 @@ const authSlice = createSlice({
             id:undefined,
             email:undefined,
             name:undefined,
+            profile:{
             gender: undefined,
             city: undefined,
             state: undefined,
+            bio: undefined,
+            phone: undefined,
             country: undefined,
             user_image:undefined,
             account_status:undefined,
             roles:undefined,
+            }
         }
     } as authProps, 
     reducers:{
@@ -38,13 +42,17 @@ const authSlice = createSlice({
                 id:undefined,
                 email:undefined,
                 name:undefined,
+                profile:{
                 gender: undefined,
+                bio: undefined,
+                phone: undefined,
                 city: undefined,
                 state: undefined,
                 country: undefined,
                 user_image:undefined,
                 account_status:undefined,
                 roles:undefined,
+                }
                 }
         }
     },

@@ -11,7 +11,7 @@ const [isToggle, setisToggle] = useState(false)
 const toggleMenu = () => setisToggle(prev =>  !prev )
 
   return (
-    <div className="antialiased bg-white-50">
+    <div className="font-poppins antialiased bg-white-50">
                     <div className="flex relative">
                       <Nav isToggle={isToggle} />
                       <div className='flex-1 h-screen overflow-x-hidden overflow-y-scroll'>
@@ -27,4 +27,4 @@ const toggleMenu = () => setisToggle(prev =>  !prev )
   )
 }
 
-export default Layout
+export default React.memo(Layout)

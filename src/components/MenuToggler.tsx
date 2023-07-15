@@ -2,11 +2,13 @@ import React, {useState} from 'react'
 import {Link,  useNavigate} from "react-router-dom"
 import {IoMdMail,IoMdNotifications,IoMdCog,IoMdArrowDropdown,IoIosPersonAdd,IoIosContact,IoIosCog,IoIosLogOut} from "react-icons/io"
 import pic from "../logo512.png"
-import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector'
+import {  useSelector } from 'react-redux/es/hooks/useSelector'
 import { selectCurrentUser } from '../features/pages/auth/authSlice'
 import useUserImage from '../app/utils/hooks/useUserImage'
 import Swal  from 'sweetalert2'
 import Profile from '../features/pages/profile/Profile'
+import ProfileEdit from '../features/pages/profile/ProfileEdit'
+import ProfilePreference from '../features/pages/profile/ProfilePreference'
 
 interface FuncProp {
   toggleMenu : () => void
@@ -15,8 +17,9 @@ interface FuncProp {
    const currentUser = useSelector(selectCurrentUser)
    const userImage = useUserImage(currentUser)
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [showProfile, setShowProfile] = useState(false);
- 
+    const [showProfile, setShowProfile] = useState(false);  
+    const [showEditProfile, setShowEditProfile] = useState(false)
+    const [showProfilePreference, setShowProfilePreference] = useState(false)
 
     // const [txt,setTxt] = useState("")
     // Swal.fire({
@@ -37,6 +40,7 @@ interface FuncProp {
     //     )
     //   }
     // })
+    // const 
   return (
     <div className="flex fixed top-0 right-0 w-full justify-between items-center bg-black text-white h-16  z-5 select-none">
                 <img className="rounded-full w-10 mx-5" src={pic} alt=""/>
@@ -94,15 +98,15 @@ interface FuncProp {
                       <div className="dropdown-menu-footer"><a href="">View all</a></div>
                     </div>
                   </li>
-                  <li className="mr-6 items-center"><Link to="/sitesettings" title="Site Setting"><IoMdCog/></Link></li>
+                  <li className="mr-6 items-center" title="Site Setting"><IoMdCog/></li>
                   <li className="mr-6 xs:mr-1 flex  relative items-center md:flex-no-wrap"><label className="flex flex-nowrap" htmlFor="userMenu"><div className="rounded-full w-7 h-7 bg-slate-500 flex-shrink-0 avatar"><img className="" src={userImage} width="50" alt=""/></div>&ensp;
-                 <div className="md:flex xs:hidden"> Hello!<span className="font-bold"> Ndubuisi</span></div><IoMdArrowDropdown/></label>
+                 <div className="md:flex xs:hidden"> Hello!, &ensp;<span className="font-bold"> {currentUser?.name || ""}</span></div><IoMdArrowDropdown/></label>
                     <input type="checkbox" className="dropdown-checkbox" id="userMenu" name="dropdown-menu" />
    <div id="dropdownDots" className="userMenu-dropdown top-6  xs:-left-20 dropdown overscroll-y-none left-4 xs:w-48 md:w-64 z-3 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
               <li className="items  px-3" onClick={()=>setShowProfile(prev =>!prev)}><Link to=""  className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosContact className="text-2xl"/>Profile</Link></li>
-              <li className="items  px-3"><Link to="" className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosCog className="text-2xl"/>Profile Setting</Link></li>
-              <li className="items  px-3"><Link to="" className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosCog className="text-2xl"/>Feeds Preference</Link></li>
+              <li className="items  px-3" onClick={()=>setShowEditProfile(prev =>!prev)}><Link to="" className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosCog className="text-2xl"/>Profile Setting</Link></li>
+              <li className="items  px-3" onClick={()=>setShowProfilePreference(prev =>!prev)}><Link to="" className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosCog className="text-2xl"/>Feeds Preference</Link></li>
     </ul>
     <div className="py-2 h-10"><Link to="" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">&ensp;<IoIosLogOut className="text-2xl"/>Logout</Link>
     </div>
@@ -115,9 +119,11 @@ interface FuncProp {
                 </button>
             </div>
            
-     <Profile showUserProfile={showProfile}/>
+     <Profile showUserProfile={showProfile} setShowProfile={setShowProfile} />
+     <ProfileEdit showEditProfile={showEditProfile} setShowEditProfile={setShowEditProfile} />
+     <ProfilePreference showProfilePreference={showProfilePreference} setShowProfilePreference={setShowProfilePreference} />
     </div>
   )
 }
 
-export default MenuToggler
+export default React.memo(MenuToggler)

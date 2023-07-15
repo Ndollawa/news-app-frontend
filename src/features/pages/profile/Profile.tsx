@@ -1,85 +1,85 @@
-import React,{useEffect} from 'react'
-import { Modal } from 'flowbite'
-import type { ModalOptions, ModalInterface } from 'flowbite'
+import React,{useEffect,useState} from 'react'
+import Modal from '../../../components/Modal';
+import {  useSelector } from 'react-redux/es/hooks/useSelector'
+import { selectCurrentUser } from '../auth/authSlice'
+import useUserImage from '../../../app/utils/hooks/useUserImage'
+
 
 interface IProfile{
     showUserProfile:boolean;
+    setShowProfile:React.SetStateAction<any>
 }
 
 
 
-const Profile = ({showUserProfile}:IProfile) => {
-const profileModal = document.getElementById('profileModal')!;
+const Profile = ({showUserProfile,setShowProfile}:IProfile) => {
+   const currentUser = useSelector(selectCurrentUser)
+   const userImage = useUserImage(currentUser)
 
-// options with default values
-const options:ModalOptions = {
-  placement: 'center',
-  backdrop: 'static',
-  backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-[5555000]',
-  closable: true,  
-}
-const modal = new Modal(profileModal, options);
-useEffect(() => {
-// if(showUserProfile){
-//      modal?.show() 
-//  }else{
-//     modal?.hide();
-//  } 
-  
-}, [])
   return (
 
 <>
-    <div id="profileModal"  tabIndex={-1} aria-hidden="true" className="fixed items-center justify-center z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div className="relative w-full max-w-2xl max-h-full">
-        {/* <!-- Modal content --> */}
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            {/* <!-- Modal header --> */}
-            <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Static modal
-                </h3>
-                <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                </button>
-            </div>
-            {/* <!-- Modal body --> */}
-            <div className="p-6 space-y-6">
-            <form>
-<div className="mb-6">
-  <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-  <input type="email" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name@flowbite.com" required/>
-</div>
-<div className="mb-6">
-  <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-  <input type="password" id="password" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required/>
-</div>
-<div className="mb-6">
-  <label htmlFor="repeat-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat password</label>
-  <input type="password" id="repeat-password" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required/>
-</div>
-<div className="flex items-start mb-6">
-  <div className="flex items-center h-5">
-    <input id="terms" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required/>
-  </div>
-  <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a></label>
-</div>
-<button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register new account</button>
-</form>
-            </div>
-            {/* <!-- Modal footer --> */}
-            <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="staticModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-hide="staticModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
-            </div>
+<Modal isVisible={showUserProfile} onClose={()=>setShowProfile(false)}>
+  
+      <div className="flex flex-wrap justify-center">
+        <div className="w-full px-4 flex justify-center">
+          <div className="relative">
+            <img alt="..." src={userImage} className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"/>
+          </div>
         </div>
-    </div>
-</div>
+        <div className="w-full px-4 text-center mt-20">
+          <div className="flex justify-center py-4 lg:pt-4 pt-8">
+            <div className="mr-4 p-3 text-center">
+              <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                22
+              </span>
+              <span className="text-sm text-blueGray-400">Prefered Authors</span>
+            </div>
+            <div className="mr-4 p-3 text-center">
+              <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                10
+              </span>
+              <span className="text-sm text-blueGray-400">Preferred News Sources</span>
+            </div>
+            <div className="lg:mr-4 p-3 text-center">
+              <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                89
+              </span>
+              <span className="text-sm text-blueGray-400">Comments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="text-center mt-6">
+        <h3 className="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
+          {currentUser?.name}
+        </h3>
+        <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+          <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+          {`${currentUser?.profile?.city || ''} ${currentUser?.profile?.state || ''} ${currentUser?.profile?.country || ''}`}
+        </div>
+        <div className="mb-2 text-blueGray-600 mt-10">
+          <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+          Email - {currentUser?.email || ''}
+        </div>
+        <div className="mb-2 text-blueGray-600">
+          <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
+          Phone - {currentUser?.profile?.phone || 'None'}
+        </div>
+      </div>
+      <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+        <div className="flex flex-wrap justify-center">
+          <div className="w-full lg:w-9/12 px-4">
+            <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+            {currentUser?.profile?.bio || 'None'}
+            </p>
+          </div>
+        </div>
+      </div>
+
+</Modal>
 </>
   )
 }
 
-export default Profile
+export default React.memo(Profile)

@@ -76,6 +76,8 @@ if(isSuccess && !isLoading){
 },[])
 
 // console.log(articles)
+const articleSources = [... new Set(articles.map((a:any)=>a.attributes.source_name))]
+const articleAuthors = [... new Set(articles.map((a:any)=>a.attributes.author))]
   return (
     <section className="max-w-7xl mx-auto py-4 px-5 h-full">
     <div className="flex justify-between items-center border-b border-gray-300">
@@ -115,7 +117,10 @@ if(isSuccess && !isLoading){
                type="text"
                list='authorList' />
                <datalist id='authorList' className='w-full'>
-                 <option onClick={addAuthorName} value={'Grace'}></option>
+                {
+                  articleAuthors.map((author:string,i)=><option onClick={addAuthorName} key={'authors'+i} value={author}>{author}</option>)
+                }
+                 
                </datalist>
            </div>
          </div>
@@ -143,7 +148,9 @@ if(isSuccess && !isLoading){
                list='sourceList'
                />
                  <datalist id='sourceList' onChange={addSourceName} className='w-full'>
-                 <option value={'Grace'}></option>
+                 {
+                  articleSources.map((source:string)=><option onClick={addSourceName} key={'souce'+source} value={source}>{source}</option>)
+                }
                </datalist>
            </div>
          </div>
@@ -153,7 +160,7 @@ if(isSuccess && !isLoading){
 
 <div className=" grid mt-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
 {
-  articles?.map((a:any)=> <Article article={a} key={a?.attributes?.title}/>)
+  articles?.map((a:any,i:number)=> <Article article={a} key={i+a?.attributes?.title}/>)
 }
 
 

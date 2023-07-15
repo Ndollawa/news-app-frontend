@@ -1,8 +1,14 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
  @layer base {
+body{
+    font-family: 'Poppins','Roboto','sans-serif';
+}
 .pt-18{
     padding-top:4rem;/* 64px */
 }

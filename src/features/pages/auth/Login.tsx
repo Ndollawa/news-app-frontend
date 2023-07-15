@@ -92,7 +92,7 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
   return (
     <>
 <div
-	className="bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
+	className="font-poppins bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
 	
 </div>
 <div
@@ -228,11 +228,11 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
                                   onChange={toggleCheck}
                                   checked={check}
                                   />
-									&ensp;<label className="form-check-label text-sm" htmlFor="basic_checkbox_1">Trust this Device?</label>
+									&ensp;<label className="form-check-label text-xs" htmlFor="basic_checkbox_1">Trust this Device?</label>
 												</div>
                    </div>
             </div>
-						<div className="text-sm ml-auto">
+						<div className="text-xs ml-auto">
 							<a href="#" className="text-purple-700 hover:text-purple-600">
 								Forgot your password?
 							</a>

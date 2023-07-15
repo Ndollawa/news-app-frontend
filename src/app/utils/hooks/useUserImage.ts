@@ -8,13 +8,13 @@ import defaultUser from '../../../images/user/defaultUser.jpeg'
 import defaultUser2 from '../../../images/user/defaultUser2.jpeg'
 
 const useUserImage = (user:any)=>{
-    if(user?.user_image && user?.userImage !== ''){
-        return process.env.REACT_APP_BASE_URL+'/uploads/users/'+user?.user_image
-    }else if(user?.gender === 'male'){
+    if(user?.profile?.user_image && user?.profile?.userImage !== ''){
+        return process.env.REACT_APP_BASE_URL+'/uploads/users/'+user?.profile?.user_image
+    }else if(user?.profile?.gender === 'male'){
         return defaultUserMale
-    }else if(user?.gender === 'female'){
+    }else if(user?.profile?.gender === 'female'){
         return defaultUserFemale
-    }else if(!user?.gender){
+    }else if(!user?.profile?.gender){
         return defaultUser2
     }else{
         return defaultUnknownUser

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectCurrentToken } from '../features/pages/auth/authSlice';
 
 const RequireAuth = ({allowedRoles}:allowedRolesProps) =>{
-    const {state:{from}} = useLocation();
+    const location = useLocation();
     const token = useSelector(selectCurrentToken);
 
 
@@ -13,14 +13,14 @@ const RequireAuth = ({allowedRoles}:allowedRolesProps) =>{
              ? jwt_decode(token)
                 : undefined;
     const  roles = decodedToken?.user?.profile?.roles || []
-    // console.log(token)
+    console.log(roles)
     return(
         token === null || undefined
-        ?<Navigate to="/login" state={{from}} replace />
+        ?<Navigate to="/login" state={{from:location?.state?.from}} replace />
         :roles?.find((role:number) => allowedRoles?.includes(role))
         ? <Outlet/>
         : token
-        ?<Navigate to="/error/403" replace state={{from}} />
+        ?<Navigate to="/error/403" replace state={{from:location?.state?.from}} />
         : <Outlet/>
        
     );

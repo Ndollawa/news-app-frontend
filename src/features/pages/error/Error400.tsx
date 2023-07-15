@@ -1,6 +1,4 @@
 import React from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { FallbackProps } from 'react-error-boundary'
 
 
 const Error400 = () => {
@@ -20,7 +18,7 @@ const Error400 = () => {
         ></span>
 
         <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
-          <Link  to="/">Go Home</Link >
+          <a  href="/dashboard">Go Home</a >
         </span>
       </a>
     </button>

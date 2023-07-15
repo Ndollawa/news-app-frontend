@@ -9,13 +9,13 @@
     import userInterface from './props/userProps'
 
 const getUserImage = (user:userInterface['user'])=>{
-    if(user?.user_image && user?.user_image !== ''){
-            return process.env.REACT_APP_BASE_URL+'/uploads/users/'+user?.user_image
-        }else if(user?.gender === 'male'){
+    if(user?.profile?.user_image && user?.profile?.user_image !== ''){
+            return process.env.REACT_APP_BASE_URL+'/uploads/users/'+user?.profile?.user_image
+        }else if(user?.profile?.gender === 'male'){
             return defaultUserMale
-        }else if(user?.gender === 'female'){
+        }else if(user?.profile?.gender === 'female'){
             return defaultUserFemale
-        }else if(!user?.gender){
+        }else if(!user?.profile?.gender){
             return defaultUser2
         }else{
             return defaultUnknownUser

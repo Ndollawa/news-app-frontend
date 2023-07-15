@@ -43,7 +43,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                     setTimeout(()=>{
                    dispatch(apiSlice.util.resetApiState())
                     },1000) 
-                    // localStorage.removeItem('persist:rootApp')
+                    localStorage.removeItem('persist:rootApp')
                 } catch (error) {
                     console.log(error)
                 }
@@ -52,7 +52,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
          refresh:builder.mutation<any, void>({
             query:()=>({
                 url:'/auth/refresh',
-                method:'GET',
+                method:'POST',
             }),
             async onQueryStarted(args,{dispatch,queryFulfilled}){
                 try {
