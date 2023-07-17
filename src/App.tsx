@@ -33,7 +33,7 @@ function App(){
    
   
                               <Routes>
-                                <Route path="/" element={<Login />} />
+                                <Route path="/" element={currentToken?<Navigate state={{from:location}} to={'/dashboard'}/> :<Login />}  />
                                 <Route path="/login" element={currentToken?<Navigate state={{from:location}} to={'/dashboard'}/> :<Login />} />
                                 <Route path="/register" element={currentToken?<Navigate state={{from:location}} to={'/dashboard'}/> :<Register/>} />
                                 <Route path="error">
