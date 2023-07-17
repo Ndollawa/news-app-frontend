@@ -95,7 +95,7 @@ interface FuncProp {
               <li className="items  px-3" onClick={()=>setShowEditProfile(prev =>!prev)}><Link to="" className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosCog className="text-2xl"/>Profile Setting</Link></li>
               <li className="items  px-3" onClick={()=>setShowProfilePreference(prev =>!prev)}><Link to="" className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosCog className="text-2xl"/>Feeds Preference</Link></li>
     </ul>
-    <div className="py-2 h-10" onClick={()=>sendLogout()}><Link to="" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">&ensp;<IoIosLogOut className="text-2xl"/>Logout</Link>
+    <div className="py-2 h-10" onClick={()=>sendLogout()}><span className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">&ensp;<IoIosLogOut className="text-2xl"/>Logout</span>
     </div>
 </div>
                     
