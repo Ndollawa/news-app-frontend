@@ -1,5 +1,5 @@
 import React from 'react'
-import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { useSendLogoutMutation } from '../../features/pages/auth/authApiSlice'
 import { selectCurrentUser } from '../../features/pages/auth/authSlice'
 import { Link } from 'react-router-dom'

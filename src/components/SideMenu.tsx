@@ -10,13 +10,13 @@ function SideMenu() {
         <div className="flex flex-col justify-between h-full overflow-y-auto">
                 <div className="p-4">
                     {/* <!-- LOGO --> */}
-                    <a className="flex items-center text-white space-x-4" href="/">
-                        <img className="w-7 h-7 rounded-lg p-1" src={logo} alt="Logo"/>
-                        <span className="text-xl font-bold">News Aggregator</span>
+                    <a className="flex items-center text-white space-x-4" href="/dashboard">
+                        <img className="w-7 h-7 rounded-lg p-1" src={`https://media.licdn.com/dms/image/C4D0BAQFbfUNKW2A-9Q/company-logo_200_200/0/1669909775579?e=1697673600&v=beta&t=TNyliwOuwNxQAfrDSOWtoavNoYIOsbATzST85YpJ_-U`} alt="Logo"/>
+                        <span className="text-md font-bold">News Aggregator</span>
                     </a>
 
                     {/* <!-- SEARCH BAR --> */}
-                        <MenuSearch />
+                        {/* <MenuSearch /> */}
                     {/* <!-- SEARCH RESULT --> */}
                     
 

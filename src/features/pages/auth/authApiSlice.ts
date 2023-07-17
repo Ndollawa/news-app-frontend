@@ -56,7 +56,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }),
             async onQueryStarted(args,{dispatch,queryFulfilled}){
                 try {
-                    const {data:{authorisation:{token,type}}}= await queryFulfilled
+                    const {data:{authorisation:{token,type}}} = await queryFulfilled
                     
                     console.log(token)
                     const decodedToken:authProps['auth'] | undefined = token

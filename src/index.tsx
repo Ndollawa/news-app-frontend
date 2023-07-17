@@ -26,7 +26,7 @@ if(process.env.NODE_ENV === 'production') disableReactDevTools();
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
-  <ErrorBoundary FallbackComponent={<Error400/>} onError={(error)=>console.log(error)}>
+  <ErrorBoundary FallbackComponent={Error400} onError={(error)=>console.log(error)}>
 <Provider  store={store} >
   <PersistGate loading={<Preloader/>} persistor={persistor}>
         {/* <HelmetProvider>   */}

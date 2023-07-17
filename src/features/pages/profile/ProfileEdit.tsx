@@ -14,6 +14,19 @@ interface IProfileEdit{
     showEditProfile:boolean;
     setShowEditProfile:React.SetStateAction<any>
 }
+interface UserData {
+  email: string | undefined;
+  name: string | undefined;
+  phone: string | undefined;
+  gender: string | undefined;
+  city: string | undefined;
+  state: string | undefined;
+  country: string | undefined;
+  bio: string | undefined;
+  password?: string | undefined;
+  password_confirmation?: string | undefined;
+  user_image?: string | undefined;
+}
 
 
 
@@ -23,17 +36,17 @@ const ProfileEdit = ({showEditProfile,setShowEditProfile}:IProfileEdit) => {
     
    const [password, setPassword] = useState('')
    const [confirmPassword, setConfirmPassword] = useState('')
-   const [email, setEmail] = useState(currentUser.email)
-   const [fullName, setFullName] = useState(currentUser.name)
-   const [phone, setPhone] = useState(currentUser?.profile?.phone)
+   const [email, setEmail] = useState<any>(currentUser.email)
+   const [fullName, setFullName] = useState<any>(currentUser.name)
+   const [phone, setPhone] = useState<any>(currentUser?.profile?.phone)
    const [previewImage, setPreviewImage] = useState("");
    const [userProfileImage, setUserProfileImage] = useState<any>("");
-   const [gender, setGender] = useState(currentUser?.profile?.gender)
+   const [gender, setGender] = useState<any>(currentUser?.profile?.gender)
 
-   const [city, setCity] = useState(currentUser?.profile?.city)
-   const [state, setState] = useState(currentUser?.profile?.state)
-   const [country, setCountry] = useState(currentUser?.profile?.country)
-   const [bio, setBio] = useState(currentUser?.profile?.bio)
+   const [city, setCity] = useState<any>(currentUser?.profile?.city)
+   const [state, setState] = useState<any>(currentUser?.profile?.state)
+   const [country, setCountry] = useState<any>(currentUser?.profile?.country)
+   const [bio, setBio] = useState<any>(currentUser?.profile?.bio)
    
    const [validMatch,setValidMatch] = useState(false);
    const [validPwd,setValidPwd] = useState(false);
@@ -64,19 +77,33 @@ const uploadUserImage = (e:ChangeEvent<HTMLInputElement>)=>{
 
 const updateUserProfile = async(e:FormEvent)=>{
 e.preventDefault()
-	let data={email,name:fullName,phone,gender,city,state,country,bio}
-		if(validMatch){
-		data = {...data, password,password_confirmation:confirmPassword}
-	}
-    if(userProfileImage){
-        data = {...data,user_image:userProfileImage}
-    }
+let data:UserData = { email, name: fullName, phone, gender, city, state, country, bio };
+// Check if there is a valid password match
+if (validMatch) {
+  data = { ...data, password, password_confirmation: confirmPassword };
+}
+// Check if there is a userProfileImage
+if (userProfileImage) {
+  data = { ...data, user_image: userProfileImage };
+}
+const formData = new FormData();
+    formData.append('name', fullName);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('city',city);
+    formData.append('country', country);
+    formData.append('state', state);
+    formData.append('gender', gender);
+    formData.append('bio', bio);
+
+console.log(formData)
 try{
-await updateProfile({id:currentUser.id,data}).unwrap()
-if(isError)return showToast('error',updateUserError?.data?.message)
+await updateProfile(formData).unwrap()
+if(isError)return showToast('error',updateProfileError?.data?.message)
 showToast('success', 'Profile updated successfully!')
-}catch(error){
+}catch(error:any){
     console.log(error)
+showToast('error',error?.data?.message)
 }
 
 }

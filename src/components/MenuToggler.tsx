@@ -5,7 +5,7 @@ import pic from "../logo512.png"
 import {  useSelector } from 'react-redux/es/hooks/useSelector'
 import { selectCurrentUser } from '../features/pages/auth/authSlice'
 import useUserImage from '../app/utils/hooks/useUserImage'
-import Swal  from 'sweetalert2'
+import { useSendLogoutMutation } from '../features/pages/auth/authApiSlice'
 import Profile from '../features/pages/profile/Profile'
 import ProfileEdit from '../features/pages/profile/ProfileEdit'
 import ProfilePreference from '../features/pages/profile/ProfilePreference'
@@ -16,34 +16,21 @@ interface FuncProp {
    const MenuToggler:React.FC<FuncProp> = ({toggleMenu}:FuncProp)=> {
    const currentUser = useSelector(selectCurrentUser)
    const userImage = useUserImage(currentUser)
-    const [modalIsOpen, setIsOpen] = useState(false);
     const [showProfile, setShowProfile] = useState(false);  
     const [showEditProfile, setShowEditProfile] = useState(false)
     const [showProfilePreference, setShowProfilePreference] = useState(false)
 
-    // const [txt,setTxt] = useState("")
-    // Swal.fire({
-    //   title: 'Are you sure?',
-    //   text: "You won't be able to revert this!",
-    //   icon: 'warning',
-    //   html:ProfileForm,
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Yes, delete it!'
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     Swal.fire(
-    //       'Deleted!',
-    //       'Your file has been deleted.',
-    //       'success'
-    //     )
-    //   }
-    // })
-    // const 
+
+  const [sendLogout,{
+    isLoading:isLogoutLoading,
+    isSuccess,
+    isError,
+    error
+   }] = useSendLogoutMutation()
+ 
   return (
     <div className="flex fixed top-0 right-0 w-full justify-between items-center bg-black text-white h-16  z-5 select-none">
-                <img className="rounded-full w-10 mx-5" src={pic} alt=""/>
+                <img className=" w-10 mx-5" src={`https://zenprospect-production.s3.amazonaws.com/uploads/pictures/648c4ff1261eca0001677f45/picture`} alt=""/>
                 <div className="items-center flex md:mr-24">
                 <ul className='flex w-full h-6 justify-between text-lg'>
                   <li className="mr-6 text-xl relative"> <label htmlFor="message" title="Messages"><IoMdMail/> <span className="badge bg-cyan-600"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>2</span></label>
@@ -108,7 +95,7 @@ interface FuncProp {
               <li className="items  px-3" onClick={()=>setShowEditProfile(prev =>!prev)}><Link to="" className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosCog className="text-2xl"/>Profile Setting</Link></li>
               <li className="items  px-3" onClick={()=>setShowProfilePreference(prev =>!prev)}><Link to="" className="flex items-center flex-nowrap py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">&ensp;<IoIosCog className="text-2xl"/>Feeds Preference</Link></li>
     </ul>
-    <div className="py-2 h-10"><Link to="" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">&ensp;<IoIosLogOut className="text-2xl"/>Logout</Link>
+    <div className="py-2 h-10" onClick={()=>sendLogout()}><Link to="" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">&ensp;<IoIosLogOut className="text-2xl"/>Logout</Link>
     </div>
 </div>
                     

@@ -17,7 +17,7 @@ const from = location.state?.from ?? location.state?.from?.pathname ?? '/dashboa
         </div>    
         <p className='text-white text-xl px-2 text-center mt-5'>The page you were looking for is not found!<br/> You may have mistyped the address or the page may have moved.</p>
         <button className="mt-5">
-          <a
+          <Link to="/dashbard"
             className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
           >
             <span
@@ -25,9 +25,9 @@ const from = location.state?.from ?? location.state?.from?.pathname ?? '/dashboa
             ></span>
     
             <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
-              <Link to="/">Go Home</Link>
+              Go Back
             </span>
-          </a>
+          </Link>
         </button>
     </main>
   )

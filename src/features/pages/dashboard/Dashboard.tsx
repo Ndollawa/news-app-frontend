@@ -1,83 +1,134 @@
-import React,{useEffect, useState} from 'react'
-import { IoIosClose, IoMdPricetags } from 'react-icons/io';
-import { useGetArticlesQuery } from './articlesApiSlice';
-import Article from './components/Article';
-import useDebounce from '../../../app/utils/hooks/useDebounce';
+import React,{useEffect, useState, useRef, useCallback } from 'react'
+import { useGetArticlesQuery } from './articlesApiSlice'
+import Article from './components/Article'
+import useDebounce from '../../../app/utils/hooks/useDebounce'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { selectCurrentUser } from '../auth/authSlice'
+import noResult from '../../../images/no-result.png'
+import { PropagateLoader, SyncLoader } from 'react-spinners'
+import SearchArticlesByKeyword from './components/SearchArticlesByKeyword'
+import SearchArticlesByAuthor from './components/SearchArticlesByAuthor'
+import SearchArticlesBySource from './components/SearchArticlesBySource'
+import Wrapper from './components/Wrapper'
+
 
 const Dashboard = () => {
-
-  const [articles, setArticles] = useState<any>([]);
-  const [authors, setAuthors] = useState<any>([]);
-  const [authorName, setAuthorName] = useState("")
-  const [sources, setSources] = useState<any>([]);
-  const [sourceName, setSourceName] = useState("")
-
+  const [authors, setAuthors] = useState<any>([])
+  const [sources, setSources] = useState<any>([])
+  const [mArticles, setMArticles] = useState<any>([])
+  const [articles, setArticles] = useState<any>([])
+  const currentUser = useSelector(selectCurrentUser)
 	const [query, setQuery] = useState('')
+	const [hasNextPage, setHasNextPage] = useState(false)
 	const debouncedQuery = useDebounce(query)
+  const [pageNum, setPageNum] = useState(1)
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    isFetching,
+    isError,
+    error
+} = useGetArticlesQuery(pageNum)
+
+
 	useEffect(() => {
-		setArticles(searchData(Object.values(data)[0]))
+		setArticles(searchData(mArticles))
 	}, [debouncedQuery])
 	const keys = ['title','source','author','content','description']
 const searchData = (data:any)=>{
 	return data?.filter((item:any)=> keys?.some((key:string)=>item?.attributes[key]?.toLowerCase()?.includes(debouncedQuery.toLowerCase())))
 
 }
-  const createAuthorName = (e:any)=>{
-    setAuthorName(e.target.value) 
+const searchDataByAuthor = (data: any) => {
+  if (!data) {
+    return [];
   }
-  // const tagwrapper= document.getElementsByClassName('tag-wrapper')!;
-  const addAuthorName = (e:any) =>{
-  if( e.key === 'Enter' ){
-    if(authorName !== ""){
-    setAuthors((authors:string[])=>{return [...authors,authorName]})
-    setAuthorName("")
-  } 
+  const authorRegex = new RegExp(authors?.join('|'), 'i');
+  return data.filter((item: any) => authorRegex.test(item?.attributes['author']));
+};
+
+const searchDataBySource = (data: any) => {
+  if (!data) {
+    return [];
   }
-  };
-  const removeAuthorName = (key:string) =>{
-    setAuthors((authors:string[])=>{return authors.filter(tag=> tag !== key )})
-    setAuthorName("")
-  }
+  const sourceRegex = new RegExp(sources?.join('|'), 'i');
+  return data.filter((item: any) => sourceRegex.test(item?.attributes['source_name']));
+};
+
+  useEffect(() => {
+    
+    const filterArticlesByUserPreference = (data:any) => {
+      const feedsPreferences = currentUser.profile?.feeds_preferences;
+      if (!feedsPreferences) {
+        return data; // Return the original data if feedsPreferences is null
+      }
+      
+
+      const { preferred_authors, preferred_sources } = feedsPreferences as any;
+    
+      return data?.filter((item:any) => {
+        const sourceName = item?.attributes['source_name']?.toLowerCase()
+        const authorName = item?.attributes['author']?.toLowerCase()
+    
+        return (
+          preferred_sources?.some((source:string) => sourceName?.includes(source.toLowerCase())) ||
+          preferred_authors?.some((author:string) => authorName?.includes(author.toLowerCase()))
+        )
+      })
+    }
+    
+	data &&	setMArticles(filterArticlesByUserPreference(Object.values(data)[0]))
+	}, [currentUser.id,data])
 
 
-  const createSourceName = (e:any)=>{
-    setSourceName(e.target.value) 
-  }
-  // const tagwrapper= document.getElementsByClassName('tag-wrapper')!;
-  const addSourceName = (e:any) =>{
-  if( e.key === 'Enter' ){
-    if(sourceName !== ""){
-    setSources((sources:string[])=>{return [...sources,sourceName]})
-    setSourceName("")
-  } 
-  }
-  };
-  const removeSourceName = (key:string) =>{
-    setSources((sources:string[])=>{return sources.filter(tag=> tag !== key )})
-    setSourceName("")
-  };
 
-  const {
-    data,
-    isLoading,
-    isSuccess,
-    isError,
-    error
-} = useGetArticlesQuery('articlesList', {
-    pollingInterval: 15000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true
-})
 useEffect(()=>{
-if(isSuccess && !isLoading){
-  // console.log()
-  setArticles(Object.values(data)[0])
-}
+// if(isSuccess && !isLoading && !isFetching){
+  setArticles((prev:any) => [...articles,...mArticles])
+// }
+ setHasNextPage(Boolean(articles.length))
 },[])
 
+ 
+useEffect(()=>{
+if(isSuccess && !isLoading && !isFetching){
+  setArticles((prev:any) => [...articles,...mArticles])
+}
+ setHasNextPage(Boolean(articles.length))
+},[pageNum,isSuccess,isLoading,isFetching,mArticles])
+
+ 
+const intObserver = useRef<IntersectionObserver | null>(null);
+const lastPostRef = useCallback(
+  (post: HTMLDivElement | null) => {
+    if (isLoading) return;
+
+    if (intObserver.current) intObserver.current.disconnect();
+
+    intObserver.current = new IntersectionObserver((posts) => {
+      if (posts[0].isIntersecting && hasNextPage) {
+        setPageNum((prev) => prev + 1);
+      }
+    });
+
+    if (post) intObserver.current.observe(post);
+  },
+  [isLoading, hasNextPage]
+);
+ const props= {
+  sources,
+  setSources,
+  authors, 
+  setAuthors,
+  mArticles,
+  setQuery,
+  setArticles,
+  searchData,
+  searchDataByAuthor,
+  searchDataBySource
+}
 // console.log(articles)
-const articleSources = [... new Set(articles.map((a:any)=>a.attributes.source_name))]
-const articleAuthors = [... new Set(articles.map((a:any)=>a.attributes.author))]
   return (
     <section className="max-w-7xl mx-auto py-4 px-5 h-full">
     <div className="flex justify-between items-center border-b border-gray-300">
@@ -88,84 +139,34 @@ const articleAuthors = [... new Set(articles.map((a:any)=>a.attributes.author))]
     <main className="flex min-h-screen flex-col">
 
 <div className="grid grid-cols-1 justify-center sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5">
- <div>
-     <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search News</label>
-     <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      onChange={(e)=>setQuery(e.target.value)} onKeyPress={()=>setArticles(searchData(Object.values(data)[0]))} placeholder="Search here.." />
- </div>
- <div>
-
-     <label htmlFor="authorTag" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by Authors</label>
-     <div className="mt-1 flex gap-2 rounded-md shadow-sm items-stretch overflow-hidden max-h-56">
-            <div className="mt-1 rounded-md shadow-sm p-1 border-2 border-secondary m-0 w-full">
-             <div className="flex flex-wrap m-1">
-               {authors.map((authorName:string,i:number)=>{
-            return(<div className="p-1 text-xs border border-secondary rounded-sm flex items-center bg-gray-200 m-1" key={i}>
-               <span >{authorName}</span>
-               <IoIosClose className="text-md ml-1.5" onClick={(e)=>removeAuthorName(authorName)}/>
-               </div>)})
-               }
-             </div>
-               
-             <input 
-               className="outline-none border-0 w-full focus:outline-none  bg-gray-50  border-gray-300 text-gray-900 text-sm rounded-lg focus:transparent focus:transparent p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:transparent dark:focus:transparent" 
-               name="tag-input"
-               value={authorName}
-               onChange={createAuthorName}
-               onKeyDown={addAuthorName} 
-                
-               type="text"
-               list='authorList' />
-               <datalist id='authorList' className='w-full'>
-                {
-                  articleAuthors.map((author:string,i)=><option onClick={addAuthorName} key={'authors'+i} value={author}>{author}</option>)
-                }
-                 
-               </datalist>
-           </div>
-         </div>
- </div> 
-
- <div>
-     <label htmlFor="sourceTag" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by Sources</label>
-     <div className="mt-1 flex gap-2 rounded-md shadow-sm items-stretch overflow-hidden max-h-56">
-            <div className="mt-1 rounded-md shadow-sm p-1 border-2 border-secondary items-center m-0 w-full">
-            <div className="flex flex-wrap m-1">
-               {sources.map((sourceName:string,i:number)=>{
-            return(<div className="p-1 text-xs border border-secondary rounded-sm flex items-center bg-gray-200 m-1" key={i}>
-               <span >{sourceName}</span>
-               <IoIosClose className="text-md ml-1.5" onClick={(e)=>removeSourceName(sourceName)}/>
-               </div>)})
-               }
-               </div>
-             <input 
-               className="outline-none border-0 w-full  bg-gray-50  border-gray-300 text-gray-900 text-sm  rounded-lg focus:transparent focus:transparent p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:transparent dark:focus:transparent" 
-               name="tag-input"
-               value={sourceName}
-               onChange={createSourceName}
-               onKeyDown={addSourceName}
-               type="text" 
-               list='sourceList'
-               />
-                 <datalist id='sourceList' onChange={addSourceName} className='w-full'>
-                 {
-                  articleSources.map((source:string)=><option onClick={addSourceName} key={'souce'+source} value={source}>{source}</option>)
-                }
-               </datalist>
-           </div>
-         </div>
- </div> 
+<SearchArticlesByKeyword {...props} />
+<SearchArticlesByAuthor {...props}/>
+<SearchArticlesBySource {...props}/>
 
 </div>
-
+{  !articles.length && !isLoading && !isFetching? 
+<Wrapper>
+<img src={noResult} width={320} alt='no result'/>
+<p>Sorry, No Result found!</p>
+</Wrapper>
+:isLoading?
+<Wrapper><SyncLoader className='text-[#1A2238]' size={'2rem'}/>
+</Wrapper>
+:
 <div className=" grid mt-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
 {
-  articles?.map((a:any,i:number)=> <Article article={a} key={i+a?.attributes?.title}/>)
+  articles?.map((a:any,i:number)=>{
+    if (articles.length === i + 1) {
+      return  <Article ref={lastPostRef} article={a} key={i+a?.attributes?.title}/>
+  }
+  return <Article article={a} key={i+a?.attributes?.title}/>
+   })
 }
-
-
-
-</div>
+</div>}
+{articles.length && isFetching?
+ <Wrapper><PropagateLoader className='text-[#1A2238]' size={'2rem'}/>
+</Wrapper>
+ : null}
 </main>
 
         </div>

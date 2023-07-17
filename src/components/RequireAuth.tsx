@@ -13,7 +13,7 @@ const RequireAuth = ({allowedRoles}:allowedRolesProps) =>{
              ? jwt_decode(token)
                 : undefined;
     const  roles = decodedToken?.user?.profile?.roles || []
-    console.log(roles)
+    // console.log(roles)
     return(
         token === null || undefined
         ?<Navigate to="/login" state={{from:location?.state?.from}} replace />

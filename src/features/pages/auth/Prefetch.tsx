@@ -14,7 +14,6 @@ const Prefetch =()=>{
     store.dispatch(articlesApiSlice.util.prefetch('getArticles', 'articlesList', { force: true }))
    if(user?.id){
     store.dispatch(usersApiSlice.util.prefetch('getUsers', 'usersList', { force: true }))
-    // store.dispatch(conversationsApiSlice.util.prefetch('getConversations', 'conversationsList', { force: true }))
    } 
 }, [])
     return <Outlet/>

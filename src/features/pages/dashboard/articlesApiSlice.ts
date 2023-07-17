@@ -17,20 +17,21 @@ const initialState = articlesAdapter.getInitialState()
 export const articlesApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getArticles: builder.query<any, any>({
-            query: () => ({
-              url: '/articles',
+            query: (page=1) => ({
+              url: `/articles?page=${page}`,
               validateStatus: (response: any, result: any) => {
                 return response.status === 200 && !result.isError;
               },
             }),
-            providesTags: (result, error, arg) => {
+            providesTags: (result, error, page, arg) => {
               if (result?.ids) {
                 return [
-                  { type: 'Article', id: 'LIST' },
+                  { type: 'Articles', id: 'LIST' },
                   ...result.ids.map((id: string) => ({ type: 'Articles', id })),
+                  {type:'Articles', id:'PARTIAL_LIST'}
                 ];
               } else {
-                return [{ type: 'Article', id: 'LIST' }];
+                return [{ type: 'Articles', id: 'PARTIAL_LIST' }];
               }
             },
           }),
@@ -41,8 +42,9 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: article
             }),
-            invalidatesTags: [
-                { type: 'Article', id: "LIST" }
+            invalidatesTags:(result,error,arg) => [
+                { type: 'Articles', id: "LIST" },
+                {type:'Articles', id:'PARTIAL_LIST'}
             ]
         }),
         updateArticle: builder.mutation({
@@ -53,7 +55,8 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
                 
             }),
             invalidatesTags: (result, error, arg) => [
-                { type: 'Article', id: arg.id }
+                { type: 'Articles', id: arg.id },
+                {type:'Articles', id:'PARTIAL_LIST'}
             ]
         }),
         deleteArticle: builder.mutation({
@@ -63,7 +66,8 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
                 body: { _id }
             }),
             invalidatesTags: (result, error, arg) => [
-                { type: 'Article', id: arg.id }
+                { type: 'Articles', id: arg.id },
+                {type:'Articles', id:'PARTIAL_LIST'}
             ]
         }),
     }),

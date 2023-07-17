@@ -15,6 +15,10 @@ const authSlice = createSlice({
             email:undefined,
             name:undefined,
             profile:{
+            feeds_preferences:{
+                preferred_authors:undefined,
+                preferred_sources:undefined,
+            },
             gender: undefined,
             city: undefined,
             state: undefined,
@@ -43,6 +47,10 @@ const authSlice = createSlice({
                 email:undefined,
                 name:undefined,
                 profile:{
+                feeds_preferences:{
+                    preferred_authors:undefined,
+                    preferred_sources:undefined,
+                },
                 gender: undefined,
                 bio: undefined,
                 phone: undefined,

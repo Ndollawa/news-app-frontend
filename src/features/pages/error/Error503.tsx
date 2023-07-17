@@ -12,7 +12,7 @@ const Error503 = () => {
 		Service Unavailable
 	</div>
 	<button className="mt-5">
-      <a
+      <Link to="/dashboard"
         className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
       >
         <span
@@ -20,9 +20,9 @@ const Error503 = () => {
         ></span>
 
         <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
-          <Link to="/">Go Home</Link>
+          Go Back
         </span>
-      </a>
+      </Link>
     </button>
 </main>
   )

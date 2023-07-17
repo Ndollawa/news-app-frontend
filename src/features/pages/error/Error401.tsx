@@ -16,7 +16,7 @@ const from = location.state?.from ?? location.state?.from?.pathname
                         <p>Oppps!!!, Your Login session has expired.<br/> Please log back in</p>
 	</div>
 	<button className="mt-5">
-      <a
+      <NavLink to="/auth/login" replace state={{ from }}
         className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
       >
         <span
@@ -24,9 +24,9 @@ const from = location.state?.from ?? location.state?.from?.pathname
         ></span>
 
         <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
-          <NavLink className="btn btn-secondary" to="/auth/login" replace state={{ from }}> Login</NavLink>
+          Login
         </span>
-      </a>
+      </NavLink>
     </button>
 </main>
 </>

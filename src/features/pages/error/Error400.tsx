@@ -10,7 +10,7 @@ const Error400 = () => {
 		Bad Request
 	</div>
 	<button className="mt-5">
-      <a
+      <a href="/dashboard"
         className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
       >
         <span
@@ -18,7 +18,7 @@ const Error400 = () => {
         ></span>
 
         <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
-          <a  href="/dashboard">Go Home</a >
+          Go Back
         </span>
       </a>
     </button>

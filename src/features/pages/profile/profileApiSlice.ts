@@ -1,5 +1,4 @@
 import { apiSlice } from "../../../app/api/apiSlice";
-import localStorage from "redux-persist/es/storage";
 
 
 export const profileApiSlice = apiSlice.injectEndpoints({
@@ -7,14 +6,14 @@ export const profileApiSlice = apiSlice.injectEndpoints({
 
         updateProfile: builder.mutation({
             query: data => ({
-                url: '/profile/edit',
+                url: '/profile/update',
                 method: 'PATCH',
                 body: data,
             }),
         }),
         updateProfilePreference: builder.mutation({
             query: data => ({
-                url: '/profile/preferences/edit',
+                url: '/profile/preferences/update',
                 method: 'PATCH',
                 body: data,
             }),

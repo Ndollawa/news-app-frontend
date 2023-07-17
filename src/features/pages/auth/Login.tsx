@@ -92,7 +92,7 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
   return (
     <>
 <div
-	className="font-poppins bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
+	className="font-poppins bg-[#08151b] absolute top-0 left-0 bg-gradient-to-b from-[#08151b] via-[#112e3b] to-[#358097]-800 to-[#499b99] bottom-0 leading-5 h-full w-full overflow-hidden">
 	
 </div>
 <div
@@ -137,17 +137,17 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
       <div className="">
                 <label
                   htmlFor="email"
-                  className="block m-0 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block m-0 text-sm font-medium text-[#194253] dark:text-white"
                 >
                   Email
                 </label>
                 <div className="flex">
-                  <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                  <span className="inline-flex items-center px-3 text-sm text-[#194253] bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
             <GrMail fontSize='1rem' />
                   </span>
                   <input
                     type="text"
-                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-500  focus:outline-none focus:border-purple-400"
+                    className="rounded-none rounded-r-lg bg-gray-50 border text-[#194253] block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#368299]-500  focus:outline-none focus:border-[#368299]-400"
                     placeholder="Email"
                     id="email"
                     autoComplete='off'
@@ -162,17 +162,17 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
               <div className="">
                 <label
                   htmlFor="password"
-                  className="block m-0 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block m-0 text-sm font-medium text-[#194253] dark:text-white"
                 >
                   Password
                 </label>
                 <div className="flex relative">
-                  <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                  <span className="inline-flex items-center px-3 text-sm text-[#194253] bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                   <GoKey fontSize='1rem'/>
                   </span>
                   <input
                      type={showPassword ? `text` : "password"}
-                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-500  focus:outline-none focus:border-purple-400"
+                    className="rounded-none rounded-r-lg bg-gray-50 border text-[#194253] block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#368299]-500  focus:outline-none focus:border-[#368299]-400"
                     placeholder="Password"
                     id="password"
                     ref={pwdRef}
@@ -186,7 +186,7 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
                     onClick={() => setShowPassword(false)}
                     className={`${
                       !showPassword ? "hidden" : "show"
-                    } h-4 text-purple-700`}
+                    } h-4 text-[#368299]-700`}
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 576 512"
@@ -201,7 +201,7 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
                     onClick={() => setShowPassword(true)}
                     className={`${
                       showPassword ? "hidden" : "show"
-                    } h-4 text-purple-700`}
+                    } h-4 text-[#368299]-700`}
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 640 512"
@@ -222,7 +222,7 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
                               <div className="custom-control custom-checkbox ms-1">
                               <input 
                                   type="checkbox" 
-                                  className="form-check-input text-purple-700 hover:text-purple-600" 
+                                  className="form-check-input text-[#358097] hover:text-[#368299]" 
                                   id="basic_checkbox_1"
                                   title='Trust this Device?'
                                   onChange={toggleCheck}
@@ -233,20 +233,20 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
                    </div>
             </div>
 						<div className="text-xs ml-auto">
-							<a href="#" className="text-purple-700 hover:text-purple-600">
+							<a href="#" className="text-[#368299]-700 hover:text-[#368299]-600">
 								Forgot your password?
 							</a>
 						</div>
 					</div>
 					<div>
-						<button type="submit" className="w-full  bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
+						<button type="submit" className="w-full  bg-[#358097]  hover:bg-[#368299] text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
             <span className="text-nowrap flex justify-center items-center ">{(isLoadingLogin)? <>Logging In <PulseLoader className="pt-1" loading={isLoadingLogin} color={'#ffffff'} size={'0.4rem'}/></> :"Login" }</span>
               </button>
               
 					</div>	
        
           <p className="text-gray-500 text-sm">Don't have an account? <a href="/register"
-						className="text-sm text-purple-700 hover:text-purple-700">Register</a></p>
+						className="text-sm text-[#368299]-700 hover:text-[#368299]-700">Register</a></p>
 					{/* <div className="flex items-center justify-center space-x-2 my-5">
 						<span className="h-px w-16 bg-gray-100"></span>
 						<span className="text-gray-300 font-normal">or</span>
@@ -260,7 +260,7 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
 				<div className="mt-7 text-center text-gray-300 text-xs">
 					<span>
                 Copyright © {new Date().getFullYear()}&ensp;
-                <a href="https://github.com/Ndollawa" rel="" target="_blank" title="Codepen aji" className="text-purple-500 hover:text-purple-600 "> Ndubusisi</a></span>
+                <a href="https://github.com/Ndollawa" rel="" target="_blank" title="Codepen aji" className="text-[#368299]-500 hover:text-[#368299]-600 "> Ndubusisi</a></span>
 				</div>
 			</div>
 		</div>
@@ -285,7 +285,7 @@ export default Login
 
 
  {/* <div className="h-screen flex">
-      <div className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center">
+      <div className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-[#368299]-700 i justify-around items-center">
         <div>
           <h1 className="text-white font-bold text-4xl font-sans">News Aggregator</h1>
           <p className="text-white mt-1">The most popular News Agreggator platform</p>

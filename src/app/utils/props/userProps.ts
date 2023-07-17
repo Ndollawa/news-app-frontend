@@ -5,7 +5,11 @@
      name: string | undefined;
      email: string | undefined;
      profile:{
-     gender: string | undefined;
+    feeds_preferences:{
+        preferred_authors:undefined;
+        preferred_sources:undefined;
+    } | null | undefined;
+    gender: string | undefined;
      bio: string | undefined;
      phone: string | undefined;
      city: string | undefined;

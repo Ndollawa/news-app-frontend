@@ -118,14 +118,15 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
     // console.log(credentials)
       const {data:{authorisation:{token,type}}} =  await register(credentials).unwrap()
          
-        const decodedToken:authProps['auth'] | undefined = token
-        ? jwt_decode(token)
-           : undefined;
-        const  user_info = decodedToken?.user
-        dispatch(setCredentials({token,user_info}))
-        setUser('');
-        setPwd('');
-        navigate(from);
+        // const decodedToken:authProps['auth'] | undefined = token
+        // ? jwt_decode(token)
+        //    : undefined;
+        // const  user_info = decodedToken?.user
+        // dispatch(setCredentials({token,user_info}))
+        // setSuccess(true)
+        setUser('')
+        setPwd('')
+        navigate(from)
         
             if(error){
                 setMsg({type:'danger',msg:'No Server Response'});
@@ -151,7 +152,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
 
   return (
     <>
-      <div className="bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden"></div>
+      <div className=" bg-[#08151b] absolute top-0 left-0 bg-gradient-to-b from-[#08151b] via-[#112e3b] to-[#358097]-800 to-[#499b99] bottom-0 leading-5 h-full w-full overflow-hidden"></div>
       <div className="relative   min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl">
         <div className="flex-col flex  self-center lg:px-14 sm:max-w-4xl xl:max-w-md  z-10">
           <div className="self-start hidden lg:flex flex-col  text-gray-300">
@@ -251,7 +252,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                   </span>
                   <input
                     type="text"
-                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-500  focus:outline-none focus:border-purple-400"
+                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#368299]-500  focus:outline-none focus:border-[#368299]-400"
                     placeholder="Full Name"
                     autoComplete='off'
                     ref={fullNameRef}
@@ -292,7 +293,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                   </span>
                   <input
                     type="text"
-                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-500  focus:outline-none focus:border-purple-400"
+                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#368299]-500  focus:outline-none focus:border-[#368299]-400"
                     placeholder="hello@example.com"
                     onChange={(e)=>setEmail(e.target.value)}
                     autoComplete='off'
@@ -337,7 +338,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                   </span>
                   <input
                      type={showPassword ? `text` : "password"}
-                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-500  focus:outline-none focus:border-purple-400"
+                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#368299]-500  focus:outline-none focus:border-[#368299]-400"
                     placeholder="Password"
                     id="password"
                     required
@@ -354,7 +355,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                     onClick={() => setShowPassword(false)}
                     className={`${
                       !showPassword ? "hidden" : "show"
-                    } h-4 text-purple-700`}
+                    } h-4 text-[#368299]-700`}
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 576 512"
@@ -369,7 +370,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                     onClick={() => setShowPassword(true)}
                     className={`${
                       showPassword ? "hidden" : "show"
-                    } h-4 text-purple-700`}
+                    } h-4 text-[#368299]-700`}
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 640 512"
@@ -410,7 +411,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                   </span>
                   <input
                       type={showCPassword ? `text` : "password"}
-                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-500  focus:outline-none focus:border-purple-400"
+                    className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeHolder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#368299]-500  focus:outline-none focus:border-[#368299]-400"
                     placeholder="Confirm password"
                     id="confirm-password"
                     required
@@ -427,7 +428,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                     onClick={() => setShowCPassword(false)}
                     className={`${
                       !showCPassword ? "hidden" : "show"
-                    } h-4 text-purple-700`}
+                    } h-4 text-[#368299]-700`}
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 576 512"
@@ -442,7 +443,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                     onClick={() => setShowCPassword(true)}
                     className={`${
                       showCPassword ? "hidden" : "show"
-                    } h-4 text-purple-700`}
+                    } h-4 text-[#368299]-700`}
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 640 512"
@@ -468,7 +469,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
              
               <div className="flex justify-between">
                 <div className="text-sm ml-auto">
-                  <a href="#" className="text-purple-700 hover:text-purple-600">
+                  <a href="#" className="text-[#368299]-700 hover:text-[#368299]-600">
                     Forgot your password?
                   </a>
                 </div>
@@ -476,7 +477,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
               <div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center items-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500"
+                  className="w-full flex justify-center items-center bg-[#358097]  hover:bg-[#368299] text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500"
                   disabled={!(validEmail && validPwd && validFullName && validMatch)? true : false} >
                 
                  <span className="text-nowrap flex justify-center items-center ">{(isLoading)? <>Registering &ensp;<PulseLoader className="pt-1" loading={isLoading} color={'#ffffff'} size={'0.4rem'}/></> :"Register Me" }</span>
@@ -487,9 +488,9 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                 Already have an account?{" "}
                 <a
                   href="/login"
-                  className="text-sm text-purple-700 hover:text-purple-700"
+                  className="text-sm text-[#368299]-700 hover:text-[#368299]-700"
                 >
-                  Sign In
+                  Login
                 </a>
               </p>
               {/* <div className="flex items-center justify-center space-x-2 my-5">
@@ -510,7 +511,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                   rel=""
                   target="_blank"
                   title="Codepen aji"
-                  className="text-purple-500 hover:text-purple-600 "
+                  className="text-[#368299]-500 hover:text-[#368299]-600 "
                 >
                   {" "}
                   Ndubusisi
