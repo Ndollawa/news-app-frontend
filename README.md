@@ -73,10 +73,10 @@ To set up the News Aggregator web application locally, follow these steps:
 ## 
 
 ## ScreenShots
-![Home Page](screenshots/creenshot(56).png)
-![Dashboard 2](screenshots/screenshot(55).png)
-![Login Page](screenshots/screenshot(53).png)
-![Registration Page](screenshots/screenshot(54).png)
+![Home Page](screenshots/Screenshot(56).png)
+![Dashboard 2](screenshots/Screenshot(55).png)
+![Login Page](screenshots/Screenshot(53).png)
+![Registration Page](screenshots/Screenshot(54).png)
 
 ## Contributing
 
