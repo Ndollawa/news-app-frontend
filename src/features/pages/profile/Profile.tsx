@@ -9,12 +9,17 @@ interface IProfile{
     showUserProfile:boolean;
     setShowProfile:React.SetStateAction<any>
 }
-
+type ProfilePreferences = {
+  preferred_authors?: string[]; 
+  preferred_sources?: string[]; 
+};
 
 
 const Profile = ({showUserProfile,setShowProfile}:IProfile) => {
    const currentUser = useSelector(selectCurrentUser)
    const userImage = useUserImage(currentUser)
+   const {profile:{feeds_preferences}} = currentUser
+  const {preferred_authors,preferred_sources} = feeds_preferences as ProfilePreferences || []
 
   return (
 
@@ -31,22 +36,17 @@ const Profile = ({showUserProfile,setShowProfile}:IProfile) => {
           <div className="flex justify-center py-4 lg:pt-4 pt-8">
             <div className="mr-4 p-3 text-center">
               <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                22
+                {preferred_authors?.length || 0}
               </span>
               <span className="text-sm text-blueGray-400">Prefered Authors</span>
             </div>
             <div className="mr-4 p-3 text-center">
               <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                10
+                {preferred_sources?.length || 0}
               </span>
               <span className="text-sm text-blueGray-400">Preferred News Sources</span>
             </div>
-            <div className="lg:mr-4 p-3 text-center">
-              <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                89
-              </span>
-              <span className="text-sm text-blueGray-400">Comments</span>
-            </div>
+           
           </div>
         </div>
       </div>

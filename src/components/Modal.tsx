@@ -17,10 +17,12 @@ if(e.target.id === 'modal-wrapper') onClose()
 
   return (
     <>
-    <div className='z-[99999999999999999] fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center overflow-hidden overscroll-contain cusor-pointer transition-all duration-200 ease-in-out bg-slate-700/30' onChange={handleClose} id ="modal-wrapper">
-    <div className={ `md:w-[${size}] w-[90%] max-h-[calc(100vh-5rem)] h-full scale-90  mx-auto flex flex-col`}>
-      <button className="text-black  p-3 text-4xl place-self-end" onClick={()=>onClose()}><IoMdCloseCircle/></button>
-      <div className="bg-white p-2 shadow-2xl transition text-black rounded overflow-y-none ">
+    <div className='z-[99999999999999999] fixed w-full inset-0 bg-black bg-opacity-30 backdrop-blur-sm overflow-hidden overscroll-contain cusor-pointer transition-all duration-200 ease-in-out bg-slate-700/30' onChange={handleClose} id ="modal-wrapper">
+    <div className={ `md:w-[${size}] sm:w-[90%] max-h-[90%] h-full scale-90  mx-auto flex justify-center items-center flex-col`}>
+    
+      <div className="bg-white w-fit p-10 shadow-2xl transition text-black rounded flex flex-col justify-center items-center overflow-y-none ">
+          <button className="text-black  p-3 text-4xl place-self-end" onClick={()=>onClose()}><IoMdCloseCircle/></button>
+      
         {children} 
       </div>
     </div>

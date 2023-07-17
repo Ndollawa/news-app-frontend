@@ -1,5 +1,6 @@
-import {useState} from 'react'
-import {Routes,Link,Route, useNavigate, Navigate } from 'react-router-dom';
+import {Routes,Route, useLocation, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { selectCurrentToken } from './features/pages/auth/authSlice';
 import Dashboard from './features/pages/dashboard/Dashboard';
 import Home from './features/pages/home/Home';
 import Register from './features/pages/auth/Register';
@@ -25,13 +26,16 @@ interface pageProps{
 
 function App(){
 
+  const location  = useLocation()
+  const currentToken = useSelector(selectCurrentToken)
+
   return (
    
   
                               <Routes>
                                 <Route path="/" element={<Login />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/register" element={<Register />} />
+                                <Route path="/login" element={currentToken?<Navigate state={{from:location}} to={'/dashboard'}/> :<Login />} />
+                                <Route path="/register" element={currentToken?<Navigate state={{from:location}} to={'/dashboard'}/> :<Register/>} />
                                 <Route path="error">
                                       <Route index element={<Error404/>} />
                                       <Route path="400" element={<Error400 />} />

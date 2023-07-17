@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [articles, setArticles] = useState<any>([])
   const currentUser = useSelector(selectCurrentUser)
 	const [query, setQuery] = useState('')
-	const [hasNextPage, setHasNextPage] = useState(false)
+	const [hasNextPage, setHasNextPage] = useState(true)
 	const debouncedQuery = useDebounce(query)
   const [pageNum, setPageNum] = useState(1)
   const {

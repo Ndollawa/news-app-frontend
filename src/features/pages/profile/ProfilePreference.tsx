@@ -34,11 +34,7 @@ const ProfilePreference = ({showProfilePreference,setShowProfilePreference}:IPro
     isSuccess,
     isError,
     error
-} = useGetArticlesQuery('articlesList', {
-    pollingInterval: 15000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true
-})
+} = useGetArticlesQuery(1)
 
 const updateUserProfile = async(e:FormEvent)=>{
     e.preventDefault()
@@ -87,15 +83,21 @@ const authors = [...new Set(articles.map((a:any)=>a.attributes.author))] as stri
   return (
 
 <>
-<Modal isVisible={showProfilePreference} onClose={()=>setShowProfilePreference(false)} size='600px'>
+<Modal isVisible={showProfilePreference} onClose={()=>setShowProfilePreference(false)} size='700px'>
   
   
-<form className="flex flex-col py-12 px-8 text-center md:py-[60px] md:px-[70px]" onSubmit={updateUserProfile}>
+<form className="flex flex-col text-center md:px-[70px]" onSubmit={updateUserProfile}>
+<div className="flex items-start justify-between p-4 m-5 border-b rounded-t dark:border-gray-600">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Feeds Preference
+                </h3>
+               
+            </div>
     <div className="grid gap-6 mb-6 sm:grid-cols-1 md:grid-cols-2">
             <div>
                     
 <h3 className="mb-5 text-lg font-medium text-gray-900 dark:text-white">Choose Authors:</h3>
-            <ul className="grid w-full gap-6 md:grid-cols-1 overflow-y-scroll over h-[400px] px-5 scrollbar scroll-m-4">
+            <ul className="grid w-full gap-6 md:grid-cols-1 overflow-y-scroll over h-[400px] px-5 scrollbar scroll-m-4  scrollbar overscroll-contain transition-all duration-200 ease-in-out">
                {authors?.map((author:string,i:number)=><AuthorsList key={i} author={author} i={i} handlePreferredAuthorsCheck={handlePreferredAuthorsCheck}/>)}
               
             </ul>
@@ -103,7 +105,7 @@ const authors = [...new Set(articles.map((a:any)=>a.attributes.author))] as stri
             <div> 
                  
             <h3 className="mb-5 text-lg font-medium text-gray-900 dark:text-white">Choose Sources:</h3>
-            <ul className="grid w-full gap-6 md:grid-cols-1 overflow-y-scroll h-[400px] px-5 scrollbar scroll-m-4 scroll-thin">
+            <ul className="grid w-full gap-6 md:grid-cols-1 overflow-y-scroll h-[400px] px-5 scrollbar scroll-m-4 scroll-thin  scrollbar overscroll-contain transition-all duration-200 ease-in-out">
                {sources?.map((source:string,i:number)=><SourcesList key={i} source={source} i={i} handlePreferredSourcesCheck={handlePreferredSourcesCheck} />)}
               
             </ul>
