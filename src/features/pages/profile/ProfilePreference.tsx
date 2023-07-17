@@ -97,7 +97,7 @@ const authors = [...new Set(articles.map((a:any)=>a.attributes.author))] as stri
             <div>
                     
 <h3 className="mb-5 text-lg font-medium text-gray-900 dark:text-white">Choose Authors:</h3>
-            <ul className="grid w-full gap-6 md:grid-cols-1 overflow-y-scroll over h-[400px] px-5 scrollbar scroll-m-4  scrollbar overscroll-contain transition-all duration-200 ease-in-out">
+            <ul className="grid w-full gap-6 md:grid-cols-1 overflow-y-auto over h-[400px] px-5 scrollbar scroll-m-4  scrollbar overscroll-contain transition-all duration-200 ease-in-out">
                {authors?.map((author:string,i:number)=><AuthorsList key={i} author={author} i={i} handlePreferredAuthorsCheck={handlePreferredAuthorsCheck}/>)}
               
             </ul>
@@ -105,7 +105,7 @@ const authors = [...new Set(articles.map((a:any)=>a.attributes.author))] as stri
             <div> 
                  
             <h3 className="mb-5 text-lg font-medium text-gray-900 dark:text-white">Choose Sources:</h3>
-            <ul className="grid w-full gap-6 md:grid-cols-1 overflow-y-scroll h-[400px] px-5 scrollbar scroll-m-4 scroll-thin  scrollbar overscroll-contain transition-all duration-200 ease-in-out">
+            <ul className="grid w-full gap-6 md:grid-cols-1 overflow-y-auto h-[400px] px-5 scrollbar scroll-m-4 scroll-thin  scrollbar overscroll-contain transition-all duration-200 ease-in-out">
                {sources?.map((source:string,i:number)=><SourcesList key={i} source={source} i={i} handlePreferredSourcesCheck={handlePreferredSourcesCheck} />)}
               
             </ul>
