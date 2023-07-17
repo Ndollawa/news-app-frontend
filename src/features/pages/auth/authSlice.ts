@@ -36,7 +36,6 @@ const authSlice = createSlice({
             const {token , user_info} = action.payload;
             state.token = token;
             if(user_info){
-                console.log(user_info)
             state.user = user_info;
             }
         },
