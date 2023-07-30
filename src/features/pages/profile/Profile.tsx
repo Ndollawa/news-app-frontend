@@ -18,8 +18,8 @@ type ProfilePreferences = {
 const Profile = ({showUserProfile,setShowProfile}:IProfile) => {
    const currentUser = useSelector(selectCurrentUser)
    const userImage = useUserImage(currentUser)
-   const {profile:{feeds_preferences}} = currentUser
-  const {preferred_authors,preferred_sources} = feeds_preferences as ProfilePreferences || []
+   const {profile} = currentUser
+  const {preferred_authors,preferred_sources} = profile as ProfilePreferences || []
 
   return (
 
@@ -27,12 +27,12 @@ const Profile = ({showUserProfile,setShowProfile}:IProfile) => {
 <Modal isVisible={showUserProfile} onClose={()=>setShowProfile(false)}>
   
       <div className="flex flex-wrap justify-center">
-        <div className="w-full px-4 flex justify-center">
+        <div className="w-full flex justify-center">
           <div className="relative">
-            <img alt="..." src={userImage} className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"/>
+            <img alt={currentUser?.name} src={userImage} width={'150'} className="shadow-xl rounded-full h-auto align-middle border-none max-w-150-px"/>
           </div>
         </div>
-        <div className="w-full px-4 text-center mt-20">
+        <div className="w-full px-4 text-center mt-2">
           <div className="flex justify-center py-4 lg:pt-4 pt-8">
             <div className="mr-4 p-3 text-center">
               <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
@@ -50,7 +50,7 @@ const Profile = ({showUserProfile,setShowProfile}:IProfile) => {
           </div>
         </div>
       </div>
-      <div className="text-center mt-6">
+      <div className="text-center mt-2">
         <h3 className="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
           {currentUser?.name}
         </h3>
@@ -58,7 +58,7 @@ const Profile = ({showUserProfile,setShowProfile}:IProfile) => {
           <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
           {`${currentUser?.profile?.city || ''} ${currentUser?.profile?.state || ''} ${currentUser?.profile?.country || ''}`}
         </div>
-        <div className="mb-2 text-blueGray-600 mt-10">
+        <div className="mb-2 text-blueGray-600 mt-3">
           <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
           Email - {currentUser?.email || ''}
         </div>
@@ -67,10 +67,10 @@ const Profile = ({showUserProfile,setShowProfile}:IProfile) => {
           Phone - {currentUser?.profile?.phone || 'None'}
         </div>
       </div>
-      <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+      <div className="mt-3 py-5 border-t border-blueGray-200 text-center">
         <div className="flex flex-wrap justify-center">
           <div className="w-full lg:w-9/12 px-4">
-            <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+            <p className="mb-4 text-md leading-relaxed text-blueGray-700">
             {currentUser?.profile?.bio || 'None'}
             </p>
           </div>

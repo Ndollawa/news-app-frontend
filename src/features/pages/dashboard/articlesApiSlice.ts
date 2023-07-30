@@ -2,7 +2,7 @@ import {
     createSelector,
     createEntityAdapter
 } from "@reduxjs/toolkit";
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
+import { RootState } from "../../../app/stores/store";
 import { apiSlice } from "../../../app/api/apiSlice";
 // import articleProps from "../../../../app/utils/props/articleProps";
 // interface articlesProp extends  articleProps{}
@@ -17,8 +17,8 @@ const initialState = articlesAdapter.getInitialState()
 export const articlesApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getArticles: builder.query<any, any>({
-            query: (page=1) => ({
-              url: `/articles?page=${page}`,
+            query: (q) => ({
+              url: `/articles?q=${q.query}&page=${q.pageNum ?? 1}&sources=${q.sources}&authors=${q.authors}&date_from=${q.startDate}&date_to=${q.endDate}`,
               validateStatus: (response: any, result: any) => {
                 return response.status === 200 && !result.isError;
               },
@@ -35,7 +35,16 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
               }
             },
           }),
-          
+        getAuthors:builder.query({
+            query:()=>({
+                url: '/articles/authors'
+            })
+        }),
+        getSources:builder.query({
+            query:()=>({
+                url: '/articles/sources'
+            })
+        }),
         addNewArticle: builder.mutation({
             query: article => ({
                 url: '/articles',
@@ -75,6 +84,8 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetArticlesQuery,
+    useGetAuthorsQuery,
+    useGetSourcesQuery,
     useAddNewArticleMutation,
     useUpdateArticleMutation,
     useDeleteArticleMutation,
@@ -95,4 +106,4 @@ export const {
     selectById: selectArticleById,
     selectIds: selectArticleIds
     // Pass in a selector that returns the notes slice of state
-} = articlesAdapter.getSelectors((state:any) => selectArticlesData(state) ?? initialState)
+} = articlesAdapter.getSelectors((state:RootState) => selectArticlesData(state) ?? initialState)

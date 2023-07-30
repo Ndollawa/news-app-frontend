@@ -116,7 +116,8 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
     e.preventDefault();
     const credentials ={name:fullName,email,password:pwd,password_confirmation:matchPwd}
     // console.log(credentials)
-      const {data:{authorisation:{token,type}}} =  await register(credentials).unwrap()
+    try {
+          const {data:{authorization:{token,type}}} =  await register(credentials).unwrap()
          
         // const decodedToken:authProps['auth'] | undefined = token
         // ? jwt_decode(token)
@@ -124,30 +125,35 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
         // const  user_info = decodedToken?.user
         // dispatch(setCredentials({token,user_info}))
         // setSuccess(true)
-        setUser('')
-        setPwd('')
-        navigate(from)
-        
-            if(error){
-                setMsg({type:'danger',msg:'No Server Response'});
-            }else if(data?.status === 400){
-                setMsg({type:'warning',msg:'Missing form detail(s)'} )
-            }else if(data?.status === 409){
-                setMsg({type:'danger',msg:'Conflict: User with Username or email already exist!'} )
-            }else{
-                setMsg({type:'danger',msg:'Registration Failed<br/>'+error})
-            errRef.current?.focus();
-            }
-    if(!isLoading && isSuccess){
+  
+        // navigate(from)  
         setMsg({type:'success',msg:'New Account successfully created!'}) 
-        showToast('sucess','New Account successfully created!')
         setSuccess(true);
         setUser('');
         setEmail('');
         setFullName('');
         setPwd('');
         setMatchPwd('');
-   }
+   setTimeout(() => {
+    setSuccess(false)
+   }, 500);
+    } catch (error:any) {
+        console.log(error)
+       if(error.status === 500){
+                setMsg({type:'danger',msg:' No Server Response'});
+            }else if(error?.status === 400){
+                setMsg({type:'warning',msg:' Missing form detail(s)'} )
+            }else if(error?.status === 409 || error?.status === 422){
+                setMsg({type:'danger',msg:` Conflict: ${error?.data?.message} !`} )
+            }else{
+                setMsg({type:'danger',msg:' Registration Failed<br/>'+error.data.message})
+            errRef.current?.focus();
+            }
+    }
+  
+        
+           
+
     }
 
   return (

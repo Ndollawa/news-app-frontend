@@ -1,14 +1,11 @@
 import React,{useState} from 'react'
 import { IoIosClose, IoMdPricetags } from 'react-icons/io'
+import { useGetSourcesQuery } from '../articlesApiSlice'
 
 const SearchArticlesBySource = ({
     sources,
     setSources,
-    mArticles,
-    setArticles,
-    searchData,
-    searchDataByAuthor,
-    searchDataBySource
+    mArticles
 }:any) => {
 
     const [sourceName, setSourceName] = useState("")
@@ -33,8 +30,14 @@ const SearchArticlesBySource = ({
   };
   
 
-  const articleSources = [...new Set(mArticles?.map((a:any)=>a?.attributes?.source_name))]
+  // const articleSources = [...new Set(mArticles?.map((a:any)=>a?.attributes?.source_name))]
 
+
+  const { articleSources } = useGetSourcesQuery("articlesList", {
+    selectFromResult: ({ data }) => ({
+        articleSources:data && Object.values(data)
+    }), 
+  })
   return (
   
  <div>
@@ -50,17 +53,17 @@ const SearchArticlesBySource = ({
            }
            </div>
          <input 
-           className="outline-none border-0 w-full  bg-gray-50  border-gray-300 text-gray-900 text-sm  rounded-lg focus:transparent focus:transparent p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:transparent dark:focus:transparent" 
+           className="outline-none border w-full  bg-gray-50  border-gray-300 text-gray-900 text-sm  rounded-lg focus:transparent focus:transparent p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:transparent dark:focus:transparent" 
            name="tag-input"
            value={sourceName}
            onChange={createSourceName}
-           onKeyDown={(e)=>{addSourceName(e);setArticles(searchDataByAuthor(searchDataBySource(searchData(mArticles))))}}
+           onKeyDown={addSourceName}
            type="text" 
            list='sourceList'
            />
              <datalist id='sourceList' onChange={addSourceName} className='w-full'>
              {
-              articleSources.map((source:any)=> <option onClick={addSourceName} key={'souce'+source} value={source}>{source}</option>)
+             articleSources && articleSources.map((source:any)=> <option onClick={addSourceName} key={'souce'+source} value={source}>{source}</option>)
             }
            </datalist>
        </div>

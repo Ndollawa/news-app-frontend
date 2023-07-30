@@ -1,4 +1,4 @@
-import {useLocation,Navigate,Outlet} from 'react-router-dom';
+import {useLocation,Navigate, useNavigate,Outlet} from 'react-router-dom';
 import {authProps, allowedRolesProps} from '../app/utils/props/authProps';
 import jwt_decode from 'jwt-decode';
 import { useSelector } from 'react-redux';
@@ -6,9 +6,11 @@ import { selectCurrentToken } from '../features/pages/auth/authSlice';
 
 const RequireAuth = ({allowedRoles}:allowedRolesProps) =>{
     const location = useLocation();
+    const navigate = useNavigate();
     const token = useSelector(selectCurrentToken);
 
-
+    token ?? navigate('/login')
+    
     const decodedToken:authProps['auth'] | undefined = token
              ? jwt_decode(token)
                 : undefined;

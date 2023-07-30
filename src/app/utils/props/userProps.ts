@@ -5,10 +5,8 @@
      name: string | undefined;
      email: string | undefined;
      profile:{
-    feeds_preferences:{
-        preferred_authors:undefined;
-        preferred_sources:undefined;
-    } | null | undefined;
+    preferred_authors:string[] | undefined;
+    preferred_sources:string[] | undefined;
     gender: string | undefined;
      bio: string | undefined;
      phone: string | undefined;

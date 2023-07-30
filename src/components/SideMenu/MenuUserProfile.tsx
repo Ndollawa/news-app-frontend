@@ -2,10 +2,12 @@ import React from 'react'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { useSendLogoutMutation } from '../../features/pages/auth/authApiSlice'
 import { selectCurrentUser } from '../../features/pages/auth/authSlice'
+import useUserImage from '../../app/utils/hooks/useUserImage'
 import { Link } from 'react-router-dom'
 
 export default function MenuUserProfile() {
   const currentUser = useSelector(selectCurrentUser)
+  const userImage = useUserImage(currentUser)
   const [sendLogout,{
     isLoading:isLogoutLoading,
     isSuccess,
@@ -17,7 +19,7 @@ export default function MenuUserProfile() {
     <div className="text-gray-200 border-gray-800 rounded flex items-center justify-between p-2">
     <div className="flex items-center space-x-2">
         {/* <!-- AVATAR IMAGE BY FIRST LETTER OF NAME --> */}
-        <img src="https://ui-avatars.com/api/?name=Habib+Mhamadi&size=128&background=ff4433&color=fff" className="w-7 rounded-full" alt="Profile"/>
+        <img src={userImage} className="w-7 rounded-full" alt="Profile"/>
         <h1>{currentUser?.name}</h1>
     </div>
     <Link  to=""  onClick={()=>sendLogout()}  className="hover:bg-gray-800 hover:text-white p-2 rounded">

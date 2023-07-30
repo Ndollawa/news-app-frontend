@@ -1,11 +1,17 @@
 import React from 'react'
 
-const SearchArticlesByKeyword = ({mArticles,setQuery,setArticles,searchData,searchDataByAuthor,searchDataBySource}:any) => {
+const SearchArticlesByKeyword = ({setQuery}:any) => {
   return (
     <div>
     <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search News</label>
-    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-     onChange={(e)=>setQuery(e.target.value)} onKeyPress={() => setArticles(searchDataByAuthor(searchDataBySource(searchData(mArticles))))} placeholder="Search here.." />
+    <div className="mt-1 flex gap-2 rounded-md shadow-sm items-stretch overflow-hidden max-h-56">
+        <div className="mt-1 rounded-md shadow-sm p-1 pb-0 border-2 border-secondary items-center m-0 w-full">
+        <div className="flex flex-wrap m-1 ">
+    <input type="text" className="outline-none border w-full bg-gray-50  border-gray-300 text-gray-900 text-sm  rounded-lg focus:transparent focus:transparent p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:transparent dark:focus:transparent"
+     onChange={(e)=>setQuery(e.target.value)} placeholder="Search here.." />
+     </div>
+   </div>
+  </div>
 </div>
   )
 }

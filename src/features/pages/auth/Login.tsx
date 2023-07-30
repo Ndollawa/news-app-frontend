@@ -36,7 +36,7 @@ const [login,{isLoading:isLoadingLogin, isSuccess}] = useLoginMutation();
  
 const dispatch = useDispatch();
 
-const from =  location?.state?.from?.pathname || '/dashboard';
+const from =  location?.pathname || '/dashboard';
 
 const userRef = useRef <HTMLInputElement>(null);
 const errRef = useRef <HTMLInputElement>(null);
@@ -65,7 +65,7 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
        const credentials = {email:user,password:pwd}
             
             // redux-rtkQuery approach
-            const {data:{authorisation:{token,type}}} = await login(credentials).unwrap()
+            const {data:{authorization:{token,type}}} = await login(credentials).unwrap()
             const decodedToken:authProps['auth'] | undefined = token
             ? jwt_decode(token)
                : undefined;
@@ -104,9 +104,11 @@ const handleLogin:FormEventHandler = async (e:FormEvent)=>{
 			<p className="pr-3 text-sm opacity-75">to Innoscripta AG Aggregator App! Discover cutting-edge startups, connect with industry experts, stay informed with the latest trends, personalize your feed, collaborate with like-minded individuals, and innovate with confidence. Join us in shaping the future and unlocking limitless possibilities for transformative innovation.</p>
 		</div>
 	</div>
-	<div className="flex justify-center self-center  z-10">
+	<div className="flex justify-center inset-0 items-center self-center  z-10">
 		<div className="p-10 bg-white mx-auto rounded-3xl w-96 ">
 			<div className="mb-7">
+        <img src={`https://media.licdn.com/dms/image/C4D0BAQFbfUNKW2A-9Q/company-logo_200_200/0/1669909775579?e=1697673600&v=beta&t=TNyliwOuwNxQAfrDSOWtoavNoYIOsbATzST85YpJ_-U`} alt={'logo'
+        }/>
 				<h3 className="font-bold text-center text-3xl text-gray-800">Login </h3>
 			
 			</div>

@@ -30,11 +30,11 @@ function App(){
   const currentToken = useSelector(selectCurrentToken)
 
   return (
-   
+  //  currentToken !== null?<Navigate state={{from:location}} to={'/dashboard'}/> :
   
                               <Routes>
-                                <Route path="/" element={currentToken?<Navigate state={{from:location}} to={'/dashboard'}/> :<Login />}  />
-                                <Route path="/login" element={currentToken?<Navigate state={{from:location}} to={'/dashboard'}/> :<Login />} />
+                                <Route path="/" element={<Home />}  />
+                                <Route path="/login" element={currentToken !== null?<Navigate state={{from:location}} to={'/dashboard'}/> :<Login />} />
                                 <Route path="/register" element={currentToken?<Navigate state={{from:location}} to={'/dashboard'}/> :<Register/>} />
                                 <Route path="error">
                                       <Route index element={<Error404/>} />

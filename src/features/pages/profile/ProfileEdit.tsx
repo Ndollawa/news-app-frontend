@@ -86,19 +86,10 @@ if (validMatch) {
 if (userProfileImage) {
   data = { ...data, user_image: userProfileImage };
 }
-const formData = new FormData();
-    formData.append('name', fullName);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('city',city);
-    formData.append('country', country);
-    formData.append('state', state);
-    formData.append('gender', gender);
-    formData.append('bio', bio);
 
-console.log(formData)
 try{
-await updateProfile(formData).unwrap()
+    console.log(data)
+await updateProfile(data).unwrap()
 if(isError)return showToast('error',updateProfileError?.data?.message)
 showToast('success', 'Profile updated successfully!')
 }catch(error:any){
@@ -114,21 +105,21 @@ showToast('error',error?.data?.message)
 <Modal isVisible={showEditProfile} onClose={()=>setShowEditProfile(false)}>
   
   
-<form  onSubmit={updateUserProfile}> 
-<div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+<form  onSubmit={updateUserProfile} className='flex flex-col w-full' encType='multipart/form-data'> 
+<div className="flex items-start justify-between p-2 mb-2 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                     Personal Information
                 </h3>
                
             </div>
-<div className="flex flex-col overflow-y-auto p-6 scrollbar overscroll-contain transition-all duration-200 ease-in-out h-[calc(100vh-10rem)]">
- <div className="mb-6">
+<div className="flex flex-col overflow-y-auto p-6 scrollbar overscroll-contain transition-all duration-200 ease-in-out h-[calc(100dvh-18rem)]">
+ <div className="mb-3">
             <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>
             <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={fullName}
             onChange={(e)=> setFullName(e.target.value)}
             placeholder="Full Name" required />
         </div>
-        <div className="grid gap-6 mb-6 md:grid-cols-2">
+        <div className="grid gap-6 mb-3 md:grid-cols-2">
     <div>
         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
         <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required 
@@ -145,7 +136,7 @@ showToast('error',error?.data?.message)
         </div>
         <div>
         <label htmlFor="gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender select</label>
-            <select id="gender" className="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={gender}  onChange={(e)=> setGender(e.target.value)}>
+            <select id="gender" className="block w-full p-2 mb-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={gender}  onChange={(e)=> setGender(e.target.value)}>
             <option selected>Select ...</option>
             {genderOptions}
             </select>
@@ -187,24 +178,24 @@ showToast('error',error?.data?.message)
         </div>
     </div>
     
-    <div className="mb-6">     
+    <div className="mb-3">     
         <label htmlFor="bio" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your bio</label>
         <textarea id="bio" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."
-          onChange={(e)=> setBio(e.target.value)}>{bio}</textarea>
+          onChange={(e)=> setBio(e.target.value)} value={bio}></textarea>
     </div> 
-    <div className="mb-6">
+    <div className="mb-3">
         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
         <input type="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••"
          onChange={(e)=> setPassword(e.target.value)} />
     </div> 
-    <div className="mb-6">
+    <div className="mb-3">
         <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
         <input type="password" id="confirm_password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" onChange={(e)=> setConfirmPassword(e.target.value)}
          />
     </div> 
-   
-    <button type="submit" className="place-self-end  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
-</div></form>
+  </div> 
+    <button type="submit" className="place-self-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-fit  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+</form>
 
 
 </Modal>

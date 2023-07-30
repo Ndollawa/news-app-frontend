@@ -6,6 +6,11 @@
 
 
  @layer base {
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}    
 body{
     font-family: 'Poppins','Roboto','sans-serif';
 }
@@ -173,7 +178,7 @@ label{
     overflow: hidden;
   }
   .footer{
-    @apply  bg-black z-5 text-white fixed -bottom-0 w-full h-14 flex items-center justify-center mt-20 right-0;
+    @apply  bg-black text-white fixed -bottom-0 w-full h-14 flex items-center justify-center mt-20 right-0;
   }
   .tag-container{
     @apply mt-1 flex rounded-md shadow-sm  items-stretch overflow-x-hidden;

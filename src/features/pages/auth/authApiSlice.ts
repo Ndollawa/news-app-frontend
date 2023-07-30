@@ -46,6 +46,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
                     localStorage.removeItem('persist:rootApp')
                 } catch (error) {
                     console.log(error)
+                    dispatch(logOut())
+                    localStorage.removeItem('persist:rootApp')
                 }
             }
         }),   
@@ -56,7 +58,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }),
             async onQueryStarted(args,{dispatch,queryFulfilled}){
                 try {
-                    const {data:{authorisation:{token,type}}} = await queryFulfilled
+                    const {data:{authorization:{token,type}}} = await queryFulfilled
                     
                     console.log(token)
                     const decodedToken:authProps['auth'] | undefined = token

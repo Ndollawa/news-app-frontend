@@ -1,14 +1,11 @@
 import React,{useState} from 'react'
 import { IoIosClose, IoMdPricetags } from 'react-icons/io'
+import { useGetAuthorsQuery } from '../articlesApiSlice'
 
 const SearchArticlesByAuthor = ({
     authors, 
     setAuthors,
-    mArticles,
-    setArticles,
-    searchData,
-    searchDataByAuthor,
-    searchDataBySource
+    mArticles
 }:any) => {
    
     const [authorName, setAuthorName] = useState("")
@@ -28,7 +25,13 @@ const SearchArticlesByAuthor = ({
     setAuthorName("")
   }
   
-const articleAuthors = [...new Set(mArticles?.map((a:any)=>a?.attributes?.author))]
+// const articleAuthors = [...new Set(mArticles?.map((a:any)=>a?.attributes?.author))]
+
+const { articleAuthors } = useGetAuthorsQuery("articlesList", {
+  selectFromResult: ({ data }) => ({
+      articleAuthors: data && Object.values(data)
+  }), 
+})
 
   return (
     <div>
@@ -46,17 +49,17 @@ const articleAuthors = [...new Set(mArticles?.map((a:any)=>a?.attributes?.author
             </div>
               
             <input 
-              className="outline-none border-0 w-full focus:outline-none  bg-gray-50  border-gray-300 text-gray-900 text-sm rounded-lg focus:transparent focus:transparent p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:transparent dark:focus:transparent" 
+              className="outline-none border w-full focus:outline-none  bg-gray-50  border-gray-300 text-gray-900 text-sm rounded-lg focus:transparent focus:transparent p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:transparent dark:focus:transparent" 
               name="tag-input"
               value={authorName}
               onChange={createAuthorName}
-              onKeyDown={(e)=>{addAuthorName(e); setArticles(searchData(searchDataByAuthor(searchDataBySource(mArticles))))}} 
+              onKeyDown={addAuthorName} 
                
               type="text"
               list='authorList' />
               <datalist id='authorList' className='w-full'>
                {
-                 articleAuthors.map((author:any,i:number)=><option onClick={addAuthorName} key={'authors'+i} value={author}>{author}</option>)
+             articleAuthors && articleAuthors?.map((author:any,i:number)=><option onClick={addAuthorName} key={'authors'+i} value={author}>{author}</option>)
                }
                 
               </datalist>
