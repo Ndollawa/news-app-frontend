@@ -11,7 +11,7 @@ interface AuthoursIP{
 const AuthorsList = ({author,i,isUserPreference ,handlePreferredAuthorsCheck}:AuthoursIP) => {
   return (
      <li>
-    <input type="checkbox" id={`author-${i}`} value={author} className="hidden peer" checked={isUserPreference} onChange={handlePreferredAuthorsCheck}/>
+    <input type="checkbox" id={`author-${i}`} value={author} className="hidden peer" checked={isUserPreference} onClick={handlePreferredAuthorsCheck}/>
     <label htmlFor={`author-${i}`} className=" text-sm inline-flex items-center w-full p-2 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:bg-blue-100 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
         <GoCheckCircleFill className= 'peer-checked:border-blue-600' size={'2rem'}/>
         <div className="block mx-2">

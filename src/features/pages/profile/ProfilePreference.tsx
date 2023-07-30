@@ -47,7 +47,12 @@ const ProfilePreference = ({
   const { preferred_authors, preferred_sources } = currentUser.profile;
   // const sources = [...new Set(articles.map((a:any)=>a.attributes.source_name))] as string[]
   // const authors = [...new Set(articles.map((a:any)=>a.attributes.author))] as string[]
-
+useEffect(() => {
+  setPreferredAuthors(prev=>[...prev,...preferred_authors as string[]])
+  setPreferredSources(prev=>[...prev,...preferred_sources as string[]] )
+  
+}, [preferred_authors,preferred_sources])
+  
   const { authors } = useGetAuthorsQuery("articlesList", {
     selectFromResult: ({ data }) => ({
       authors: data && Object.values(data),
@@ -61,21 +66,22 @@ const ProfilePreference = ({
   // Add/Remove checked item from list
   const handlePreferredAuthorsCheck = (event: any) => {
     var updatedList = [...preferredAuthors];
-    if (event.target.value!) {
+    if (event.target.value! && !preferredAuthors.includes(event.target.value!) ) {
       updatedList = [...preferredAuthors, event?.target?.value!];
     } else {
       updatedList.splice(preferredAuthors.indexOf(event?.target?.value!), 1);
     }
-    setPreferredAuthors(updatedList);
+    setPreferredAuthors([...new Set(updatedList)]);
+  console.log(preferredAuthors)
   };
   const handlePreferredSourcesCheck = (event: any) => {
     var updatedList = [...preferredSources];
-    if (event.target.value!) {
+    if (event.target.value! && !preferredSources.includes(event.target.value!)) {
       updatedList = [...preferredSources, event?.target?.value!];
     } else {
       updatedList.splice(preferredSources.indexOf(event?.target?.value!), 1);
     }
-    setPreferredSources(updatedList);
+    setPreferredSources([...new Set(updatedList)]);
   };
 
   return (
@@ -104,7 +110,7 @@ const ProfilePreference = ({
                   (author: string, i: number) =>
                     author && (
                       <AuthorsList
-                        isUserPreference={preferred_authors?.includes(author) as boolean}
+                        isUserPreference={preferredAuthors?.includes(author) as boolean}
                         key={i}
                         author={author}
                         i={i}
@@ -125,7 +131,7 @@ const ProfilePreference = ({
                   (source: string, i: number) =>
                     source && (
                       <SourcesList
-                        isUserPreference={preferred_sources?.includes(source) as boolean}
+                        isUserPreference={preferredSources?.includes(source) as boolean}
                         key={i}
                         source={source}
                         i={i}
